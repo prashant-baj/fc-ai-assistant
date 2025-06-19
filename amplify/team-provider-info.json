@@ -1,0 +1,26 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-fcaichatbot-staging-2b557-authRole",
+      "UnauthRoleArn": "arn:aws:iam::383865785149:role/amplify-fcaichatbot-staging-2b557-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::383865785149:role/amplify-fcaichatbot-staging-2b557-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-fcaichatbot-staging-2b557-deployment",
+      "UnauthRoleName": "amplify-fcaichatbot-staging-2b557-unauthRole",
+      "StackName": "amplify-fcaichatbot-staging-2b557",
+      "StackId": "arn:aws:cloudformation:ap-south-1:383865785149:stack/amplify-fcaichatbot-staging-2b557/006a51d0-4cfd-11f0-b759-02fff9d9abfb",
+      "AmplifyAppId": "d2kpue2cnunbyp"
+    },
+    "categories": {
+      "function": {
+        "FCAIKBSynchFunction": {
+          "deploymentBucketName": "amplify-fcaichatbot-staging-2b557-deployment",
+          "s3Key": "amplify-builds/FCAIKBSynchFunction-44665a4d6e756a69755a-build.zip"
+        }
+      },
+      "api": {
+        "FCAIKBSynch": {}
+      }
+    }
+  }
+}

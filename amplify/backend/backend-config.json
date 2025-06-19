@@ -1,0 +1,43 @@
+{
+  "api": {
+    "FCAIKBSynch": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "FCAIKBSynchFunction"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
+  "function": {
+    "FCAIKBSynchFunction": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_FCAIKBSynchFunction_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "FCAIKBSynchFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_FCAIKBSynchFunction_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "FCAIKBSynchFunction"
+        }
+      ]
+    }
+  }
+}

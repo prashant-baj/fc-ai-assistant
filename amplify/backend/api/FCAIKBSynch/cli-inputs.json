@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "paths": {
+    "/sync": {
+      "name": "/sync",
+      "lambdaFunction": "FCAIKBSynchFunction",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}
