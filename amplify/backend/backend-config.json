@@ -16,7 +16,17 @@
     }
   },
   "function": {
+    "FCAIIntentAnalyserLambda": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "FCAIKBSynchFunction": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "FCAIVectorSearchLambda": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
@@ -36,6 +46,22 @@
         {
           "category": "function",
           "resourceName": "FCAIKBSynchFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_FCAIVectorSearchLambda_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "FCAIVectorSearchLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_FCAIVectorSearchLambda_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "FCAIVectorSearchLambda"
         }
       ]
     }

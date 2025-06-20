@@ -15,8 +15,13 @@
       "function": {
         "FCAIKBSynchFunction": {
           "deploymentBucketName": "amplify-fcaichatbot-staging-2b557-deployment",
-          "s3Key": "amplify-builds/FCAIKBSynchFunction-44665a4d6e756a69755a-build.zip"
-        }
+          "s3Key": "amplify-builds/FCAIKBSynchFunction-514b3363512b7737556c-build.zip"
+        },
+        "FCAIVectorSearchLambda": {
+          "deploymentBucketName": "amplify-fcaichatbot-staging-2b557-deployment",
+          "s3Key": "amplify-builds/FCAIVectorSearchLambda-42772b65644b59733669-build.zip"
+        },
+        "FCAIIntentAnalyserLambda": {}
       },
       "api": {
         "FCAIKBSynch": {}
