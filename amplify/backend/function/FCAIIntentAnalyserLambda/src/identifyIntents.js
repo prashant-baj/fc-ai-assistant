@@ -31,16 +31,25 @@ Respond *only* with a JSON array of intent strings.`
   });
 
   const response = await client.send(command);
-  
+
   const text = response.output.message.content[0]?.text.trim();
 
+  let intents;
   try {
-    console.log("Response:", text);
-    return text;
+    intents = JSON.parse(text); // Parse into a JS array
   } catch (err) {
-    console.error("Parse error:", err, "raw:", text);
-    return ["Irrelevant"];
+    console.error("Failed to parse intents as JSON:", text, err);
+    intents = ["Irrelevant"];
   }
+  return intents;
+
+  // try {
+  //   console.log("Response:", text);
+  //   return text;
+  // } catch (err) {
+  //   console.error("Parse error:", err, "raw:", text);
+  //   return ["Irrelevant"];
+  // }
 }
 
 module.exports = { identifyIntents };

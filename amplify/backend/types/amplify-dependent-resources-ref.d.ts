@@ -7,6 +7,13 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "function": {
+    "FCAIChatbotLambda": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
     "FCAIIntentAnalyserLambda": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
@@ -15,6 +22,13 @@ export type AmplifyDependentResourcesAttributes = {
       "Region": "string"
     },
     "FCAIKBSynchFunction": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
+    "FCAIQueryLambda": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
       "LambdaExecutionRoleArn": "string",

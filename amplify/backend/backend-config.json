@@ -16,12 +16,22 @@
     }
   },
   "function": {
+    "FCAIChatbotLambda": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "FCAIIntentAnalyserLambda": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
     "FCAIKBSynchFunction": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "FCAIQueryLambda": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
@@ -33,6 +43,22 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_FCAIChatbotLambda_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "FCAIChatbotLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_FCAIChatbotLambda_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "FCAIChatbotLambda"
+        }
+      ]
+    },
     "AMPLIFY_function_FCAIIntentAnalyserLambda_deploymentBucketName": {
       "usedBy": [
         {
@@ -62,6 +88,22 @@
         {
           "category": "function",
           "resourceName": "FCAIKBSynchFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_FCAIQueryLambda_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "FCAIQueryLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_FCAIQueryLambda_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "FCAIQueryLambda"
         }
       ]
     },
