@@ -21,7 +21,10 @@
           "deploymentBucketName": "amplify-fcaichatbot-staging-2b557-deployment",
           "s3Key": "amplify-builds/FCAIVectorSearchLambda-42772b65644b59733669-build.zip"
         },
-        "FCAIIntentAnalyserLambda": {}
+        "FCAIIntentAnalyserLambda": {
+          "deploymentBucketName": "amplify-fcaichatbot-staging-2b557-deployment",
+          "s3Key": "amplify-builds/FCAIIntentAnalyserLambda-6c39615046426353724d-build.zip"
+        }
       },
       "api": {
         "FCAIKBSynch": {}

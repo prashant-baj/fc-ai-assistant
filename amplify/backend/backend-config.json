@@ -33,6 +33,22 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_FCAIIntentAnalyserLambda_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "FCAIIntentAnalyserLambda"
+        }
+      ]
+    },
+    "AMPLIFY_function_FCAIIntentAnalyserLambda_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "FCAIIntentAnalyserLambda"
+        }
+      ]
+    },
     "AMPLIFY_function_FCAIKBSynchFunction_deploymentBucketName": {
       "usedBy": [
         {
