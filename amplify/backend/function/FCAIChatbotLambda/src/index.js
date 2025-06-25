@@ -13,7 +13,8 @@ async function invokeLambda(FunctionName, Payload) {
 }
 
 async function sendWsMessage(endpoint, connectionId, message) {
-  //const client = new ApiGatewayManagementApiClient({ endpoint });
+  try{
+    //const client = new ApiGatewayManagementApiClient({ endpoint });
   console.log("Sending message:", message);
   const client = new ApiGatewayManagementApiClient({
             region: "ap-south-1", // or your region
@@ -23,6 +24,11 @@ async function sendWsMessage(endpoint, connectionId, message) {
     ConnectionId: connectionId,
     Data: Buffer.from(JSON.stringify({ message }))
   }));
+
+  } catch (e) {
+    console.error(e);
+  }
+  
 }
 
 
@@ -74,33 +80,38 @@ exports.handler = async (event) => {
         bucket: "fc-bedrock-kb",
         key: "vectors/catalogue-400601-with-embeddings.json",
         query: message,
-        minSimilarity: 0.3,
+        minSimilarity: 0.25,
         topK: 10
       });
 
-      return await sendWsMessage(wsEndpoint, connectionId, vectorResp.matches || []);
+      const result = JSON.parse(vectorResp.body);
+
+      return await sendWsMessage(wsEndpoint, connectionId, result.matches || []);
     }
 
     // 3. Handle general query
     await sendWsMessage(wsEndpoint, connectionId, "Processing your general query with LLM...");
     const generalResp = await invokeLambda('FCAIQueryLambda-staging', { message, intents });
 
-    return await sendWsMessage(wsEndpoint, connectionId, generalResp);
-
-    if (generalResp.fnvList?.length) {
-      await sendWsMessage(wsEndpoint, connectionId, `Identified ingredients: ${generalResp.fnvList.join(', ')}`);
+    await sendWsMessage(wsEndpoint, connectionId, generalResp);
+    console.log("GeneralResp:", generalResp);
+    const inner = JSON.parse(generalResp.body);
+    console.log("Inner:", inner);
+    console.log(inner.fnvList);
+    if (inner.fnvList) {
+      await sendWsMessage(wsEndpoint, connectionId, `Identified ingredients: ${inner.fnvList}`);
       await sendWsMessage(wsEndpoint, connectionId, "Fetching matching products...");
       const matches = await invokeLambda('FCAIVectorSearchLambda-staging', {
         bucket: "fc-bedrock-kb",
         key: "vectors/catalogue-400601-with-embeddings.json",
-        query: generalResp.fnvList.join(' '),
-        minSimilarity: 0.3,
-        topK: 10
+        query: `Identify these products: ${inner.fnvList}`,
+        minSimilarity: 0.25,
+        topK: 15
       });
-
+      console.log("Matches:", matches);
       return await sendWsMessage(wsEndpoint, connectionId, {
-        response: generalResp.response,
-        matches: matches.matches
+        response: inner,
+        matches: matches
       });
     }
 
@@ -111,3 +122,5 @@ exports.handler = async (event) => {
     return await sendWsMessage(wsEndpoint, connectionId, "Internal error. Please try again.");
   }
 };
+// Note: This Lambda function orchestrates the entire flow of processing a user query
+// by invoking other Lambdas and sending messages back to the WebSocket client.

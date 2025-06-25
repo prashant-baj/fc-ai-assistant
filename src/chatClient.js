@@ -23,6 +23,14 @@ ws.on('error', (err) => {
   console.error('❌ Error:', err.message);
 });
 
+// Example client close handling
+process.on('SIGINT', () => {
+  console.log('\nGracefully closing...');
+  ws.close(1000, "Client is closing"); // send close code
+  // Exit after a short delay so close can be sent
+  setTimeout(() => process.exit(0), 500); 
+});
+
 /**
  * Prompt user input in the console and send it to the API.
  * Keeps connection alive for streaming.
