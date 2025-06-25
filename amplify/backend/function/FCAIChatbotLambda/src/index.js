@@ -18,7 +18,7 @@ async function sendWsMessage(endpoint, connectionId, message) {
   console.log("Sending message:", message);
   const client = new ApiGatewayManagementApiClient({
             region: "ap-south-1", // or your region
-            endpoint: `https://${endpoint}`
+            endpoint: `https://0wwh4y6pd5.execute-api.ap-south-1.amazonaws.com/dev`
         });
   await client.send(new PostToConnectionCommand({
     ConnectionId: connectionId,
@@ -109,18 +109,28 @@ exports.handler = async (event) => {
         topK: 15
       });
       console.log("Matches:", matches);
-      return await sendWsMessage(wsEndpoint, connectionId, {
+       await sendWsMessage(wsEndpoint, connectionId, {
         response: inner,
         matches: matches
       });
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ status: "ok" })
+      }
     }
 
     // Fallback
-    return await sendWsMessage(wsEndpoint, connectionId, generalResp.response || "No results.");
+    await sendWsMessage(wsEndpoint, connectionId, generalResp.response || "No results.");
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ status: "ok" })
+    }
   } catch (error) {
     console.error('Error orchestrating:', error);
-    return await sendWsMessage(wsEndpoint, connectionId, "Internal error. Please try again.");
+    await sendWsMessage(wsEndpoint, connectionId, "Internal error. Please try again.");
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ status: "error" })
+    }
   }
 };
-// Note: This Lambda function orchestrates the entire flow of processing a user query
-// by invoking other Lambdas and sending messages back to the WebSocket client.
