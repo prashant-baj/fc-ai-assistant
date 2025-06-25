@@ -51,7 +51,8 @@ function sendUserInput() {
 
     const message = {
       action: 'message', // matches your route key
-      message: userInput
+      message: userInput,
+      userId: '+919970160472', // replace with your user ID
     };
     ws.send(JSON.stringify(message));
     sendUserInput(); // prompt again

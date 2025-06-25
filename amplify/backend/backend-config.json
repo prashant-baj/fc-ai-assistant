@@ -123,5 +123,11 @@
         }
       ]
     }
+  },
+  "storage": {
+    "fcaichatbotlogs": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    }
   }
 }

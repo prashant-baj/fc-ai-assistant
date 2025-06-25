@@ -27,7 +27,7 @@
         },
         "FCAIChatbotLambda": {
           "deploymentBucketName": "amplify-fcaichatbot-staging-2b557-deployment",
-          "s3Key": "amplify-builds/FCAIChatbotLambda-55664365763776647034-build.zip"
+          "s3Key": "amplify-builds/FCAIChatbotLambda-32554d49735130395437-build.zip"
         },
         "FCAIQueryLambda": {
           "deploymentBucketName": "amplify-fcaichatbot-staging-2b557-deployment",
@@ -36,6 +36,9 @@
       },
       "api": {
         "FCAIKBSynch": {}
+      },
+      "storage": {
+        "fcaichatbotlogs": {}
       }
     }
   }

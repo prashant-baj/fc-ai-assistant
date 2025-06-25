@@ -1,0 +1,10 @@
+{
+  "resourceName": "fcaichatbotlogs",
+  "tableName": "fcaichatbotlogs",
+  "partitionKey": {
+    "fieldName": "messageId",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}
