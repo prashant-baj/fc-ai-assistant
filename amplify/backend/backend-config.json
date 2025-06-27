@@ -16,6 +16,11 @@
     }
   },
   "function": {
+    "FCAIChatbotAuthorizer": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "FCAIChatbotLambda": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -43,6 +48,22 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_FCAIChatbotAuthorizer_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "FCAIChatbotAuthorizer"
+        }
+      ]
+    },
+    "AMPLIFY_function_FCAIChatbotAuthorizer_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "FCAIChatbotAuthorizer"
+        }
+      ]
+    },
     "AMPLIFY_function_FCAIChatbotLambda_deploymentBucketName": {
       "usedBy": [
         {

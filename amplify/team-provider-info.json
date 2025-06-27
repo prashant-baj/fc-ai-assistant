@@ -23,15 +23,19 @@
         },
         "FCAIIntentAnalyserLambda": {
           "deploymentBucketName": "amplify-fcaichatbot-staging-2b557-deployment",
-          "s3Key": "amplify-builds/FCAIIntentAnalyserLambda-315071686a554d4b7132-build.zip"
+          "s3Key": "amplify-builds/FCAIIntentAnalyserLambda-5058534e675974667655-build.zip"
         },
         "FCAIChatbotLambda": {
           "deploymentBucketName": "amplify-fcaichatbot-staging-2b557-deployment",
-          "s3Key": "amplify-builds/FCAIChatbotLambda-32675269425078327a46-build.zip"
+          "s3Key": "amplify-builds/FCAIChatbotLambda-304d556f466a59316672-build.zip"
         },
         "FCAIQueryLambda": {
           "deploymentBucketName": "amplify-fcaichatbot-staging-2b557-deployment",
           "s3Key": "amplify-builds/FCAIQueryLambda-32527567444433526578-build.zip"
+        },
+        "FCAIChatbotAuthorizer": {
+          "deploymentBucketName": "amplify-fcaichatbot-staging-2b557-deployment",
+          "s3Key": "amplify-builds/FCAIChatbotAuthorizer-37726d56332b357a5572-build.zip"
         }
       },
       "api": {

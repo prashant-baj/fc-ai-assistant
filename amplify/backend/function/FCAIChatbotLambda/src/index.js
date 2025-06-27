@@ -41,7 +41,7 @@ async function sendWsMessage(endpoint, connectionId, structuredResponse, userId)
         const payload = JSON.stringify(structuredResponse);
         console.debug(`Sending WS message to ${connectionId}:`, structuredResponse);
         await client.send(new PostToConnectionCommand({ ConnectionId: connectionId, Data: Buffer.from(payload) }));
-        await logMessage(connectionId, 'bot', structuredResponse, userId); 
+        await logMessage(connectionId, 'bot', structuredResponse, userId);
     } catch (e) {
         console.error('Error sending WS message:', e);
     }
@@ -58,14 +58,31 @@ function buildResponse({ clientLogic = [], userMessages = [] }) {
 }
 
 exports.handler = async (event) => {
+    console.debug('Received event:', JSON.stringify(event));
     const body = JSON.parse(event.body || '{}');
-    const { message = '', userId = 'unknown' } = body;
+    
     const connectionId = event.requestContext.connectionId;
+
+    const routeKey = event.requestContext.routeKey;
+    if (routeKey === '$connect') {
+        console.log('✅ New client connected:', connectionId);
+        // Optionally store connectionId to DynamoDB here
+        return { statusCode: 200, body: 'Connected' };
+    }
+
+    if (routeKey === '$disconnect') {
+        console.log('👋 Client disconnected:', connectionId);
+        // Optionally remove connectionId from DB
+        return { statusCode: 200, body: 'Disconnected' };
+    }
+
+    const { message = '', userId = 'unknown' } = body;
+
 
     console.debug('Incoming event:', { message, userId, connectionId });
 
     if (!message || !connectionId) {
-        return { statusCode: 400, body: JSON.stringify({ error: 'Invalid request' }) };
+        return { statusCode: 200, body: JSON.stringify({ ststus: 'Please input message' }) };
     }
 
     const domainName = event.requestContext.domainName;
@@ -91,23 +108,23 @@ exports.handler = async (event) => {
             intents = ['Irrelevant'];
         }
 
-         if (intents.includes('Objectionable') || intents.includes('Harmful')) {
+        if (intents.includes('Objectionable') || intents.includes('Harmful')) {
             await sendWsMessage(
                 wsEndpoint,
                 connectionId,
-                buildResponse({ userMessages: [{ messageType: 'message', messageValues: ['Sorry, this is objectionable or harmful. Testing me or using information on such topics may atrract legal action '] }] }),
+                buildResponse({ userMessages: [{ messageType: 'content', messageValues: ['Sorry, this is objectionable or harmful. Testing me or using information on such topics may atrract legal action '] }] }),
                 userId
             );
             return { statusCode: 200, body: JSON.stringify({ status: 'ok' }) };
         }
 
-        
+
 
         if (intents.includes('Irrelevant')) {
             await sendWsMessage(
                 wsEndpoint,
                 connectionId,
-                buildResponse({ userMessages: [{ messageType: 'message', messageValues: ['Sorry, I can only help with fruits and vegetables.'] }] }),
+                buildResponse({ userMessages: [{ messageType: 'content', messageValues: ['Sorry, I can only help with fruits and vegetables.'] }] }),
                 userId
             );
             return { statusCode: 200, body: JSON.stringify({ status: 'ok' }) };
@@ -120,20 +137,20 @@ exports.handler = async (event) => {
                 buildResponse({ userMessages: [{ messageType: 'message', messageValues: ['Hello.. how may i help you today?'] }] }),
                 userId
             );
-           
+
         }
 
         await sendWsMessage(
             wsEndpoint,
             connectionId,
             buildResponse({
-            clientLogic: [{ messageType: 'intent', messageValues: intents.map(i => i.toLowerCase()) }],
-            userMessages: [{ messageType: 'message', messageValues: [`As I understand, you're interested in information related to  ${intents.map(i => i.toLowerCase())}`] }]
+                clientLogic: [{ messageType: 'intent', messageValues: intents.map(i => i.toLowerCase()) }],
+                userMessages: [{ messageType: 'message', messageValues: [`As I understand, you're interested in information related to  ${intents.map(i => i.toLowerCase())}`] }]
             }),
             userId
         );
 
-       if (intents.includes('FAQ')) {
+        if (intents.includes('FAQ')) {
             await sendWsMessage(
                 wsEndpoint,
                 connectionId,
@@ -143,7 +160,7 @@ exports.handler = async (event) => {
             return { statusCode: 200, body: JSON.stringify({ status: 'ok' }) };
         }
 
-        
+
 
         // ✅ Fetch Products
         if (intents.includes('FindProduct')) {

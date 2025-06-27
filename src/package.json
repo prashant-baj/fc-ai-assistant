@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "ws": "^8.18.2"
+    "ws": "^8.18.2",
+    "@aws-sdk/client-cognito-identity-provider": "^3.830.0"
   }
 }
