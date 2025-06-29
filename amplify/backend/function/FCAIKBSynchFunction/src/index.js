@@ -2,18 +2,12 @@ const { S3Client, GetObjectCommand, PutObjectCommand } = require("@aws-sdk/clien
 const { BedrockRuntimeClient, InvokeModelCommand } = require("@aws-sdk/client-bedrock-runtime");
 const path = require("path");
 
-/**
- * Converts the Bedrock response body (Uint8Array) to string, then JSON.
- */
 async function parseEmbeddingResponse(responseBody) {
   const jsonString = Buffer.from(responseBody).toString("utf-8");
   const parsed = JSON.parse(jsonString);
   return parsed.embedding;
 }
 
-/**
- * Calls Amazon Titan to generate embedding for input text.
- */
 async function generateEmbedding(text, bedrockClient) {
   try {
     const command = new InvokeModelCommand({
@@ -32,19 +26,13 @@ async function generateEmbedding(text, bedrockClient) {
   }
 }
 
-/**
- * Loads object from S3 and parses as JSON.
- */
 async function loadJsonFromS3(s3Client, bucket, key) {
   const response = await s3Client.send(new GetObjectCommand({ Bucket: bucket, Key: key }));
   const stream = response.Body;
-  const raw = await stream.transformToString(); // works in Lambda for Uint8Array or stream
+  const raw = await stream.transformToString();
   return JSON.parse(raw);
 }
 
-/**
- * Saves JSON to S3.
- */
 async function saveJsonToS3(s3Client, bucket, key, data) {
   await s3Client.send(
     new PutObjectCommand({
@@ -56,15 +44,12 @@ async function saveJsonToS3(s3Client, bucket, key, data) {
   );
 }
 
-/**
- * Lambda handler to enrich catalog with Titan embeddings.
- */
 exports.handler = async (event) => {
   console.log("Event:", JSON.stringify(event));
 
-  let bucket, key;
+  let bucket, key, type;
   try {
-    ({ bucket, key } = JSON.parse(event.body || "{}"));
+    ({ bucket, key, type = "product" } = JSON.parse(event.body || "{}"));
   } catch (e) {
     return { statusCode: 400, body: JSON.stringify({ error: "Invalid JSON body." }) };
   }
@@ -76,24 +61,26 @@ exports.handler = async (event) => {
   const s3 = new S3Client({ region: "ap-south-1" });
   const bedrock = new BedrockRuntimeClient({ region: "ap-south-1" });
 
-  let catalog;
+  let items;
   try {
-    catalog = await loadJsonFromS3(s3, bucket, key);
-    if (!Array.isArray(catalog)) {
-      throw new Error("Catalog must be an array");
+    items = await loadJsonFromS3(s3, bucket, key);
+    if (!Array.isArray(items)) {
+      throw new Error("Data must be an array");
     }
   } catch (err) {
-    console.error("Failed to load catalog:", err);
-    return { statusCode: 500, body: JSON.stringify({ error: "Failed to load catalog file" }) };
+    console.error("Failed to load file:", err);
+    return { statusCode: 500, body: JSON.stringify({ error: "Failed to load input file" }) };
   }
 
-  for (const product of catalog) {
+  for (const item of items) {
     try {
-      const text = buildTextFromProduct(product);
+      const text = type === "faq" ? buildTextFromFAQ(item) : buildTextFromProduct(item);
+      console.log("Type:", type);
+      console.log("Text:", text);
       const embedding = await generateEmbedding(text, bedrock);
-      product.embedding = embedding;
+      item.embedding = embedding;
     } catch (err) {
-      console.error(`Embedding failed for productId=${product.productId}`, err);
+      console.error(`Embedding failed for item id=${item.id || item.productId}`, err);
     }
   }
 
@@ -101,7 +88,7 @@ exports.handler = async (event) => {
   const outputKey = `vectors/${baseName}-with-embeddings.json`;
 
   try {
-    await saveJsonToS3(s3, bucket, outputKey, catalog);
+    await saveJsonToS3(s3, bucket, outputKey, items);
   } catch (err) {
     console.error("Failed to save enriched file:", err);
     return { statusCode: 500, body: JSON.stringify({ error: "Failed to write to S3" }) };
@@ -114,29 +101,27 @@ exports.handler = async (event) => {
       "Access-Control-Allow-Headers": "*",
     },
     body: JSON.stringify({
-      message: "Enriched catalog with embeddings saved.",
+      message: `Enriched ${type} data with embeddings saved.`,
       outputKey,
-      itemCount: catalog.length,
+      itemCount: items.length,
     }),
   };
 };
 
-/**
- * Creates an enriched string from product fields.
- */
 function buildTextFromProduct(product) {
   const parts = [];
-  if (product.names) {
-    parts.push(...Object.values(product.names));
-  }
+  if (product.names) parts.push(...Object.values(product.names));
   if (product.shortDescription) parts.push(product.shortDescription);
   if (product.longDescription) parts.push(product.longDescription);
 
-  const flattenTags = (cats) =>
-    cats?.flatMap((c) => [c.category, ...(c.tags || [])]) ?? [];
+  const flattenTags = (cats) => cats?.flatMap((c) => [c.category, ...(c.tags || [])]) ?? [];
 
   parts.push(...flattenTags(product["primary-categories"]));
   parts.push(...flattenTags(product["other-categories"]));
 
   return parts.filter(Boolean).join(" | ");
+}
+
+function buildTextFromFAQ(faq) {
+  return `${faq.question} | ${faq.answer}`;
 }

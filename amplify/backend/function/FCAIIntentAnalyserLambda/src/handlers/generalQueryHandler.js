@@ -18,7 +18,7 @@ User's intent: ${intent}
 Your task:
 1. Answer the user query helpfully and clearly.
 2. Identify any fruits and vegetables mentioned in the conversation.
-3. Your response, recipe, health related information or any information etc MUST NOT include any content related to non-vegetarian items like meat, fish, eggs, alcohol, wine or tobacco.
+3. Your response, recipe, health related information or any information etc MUST NOT include any content related to non-vegetarian items like meat, chicken, mutton, beef, pork, shrimp, fish, eggs, alcohol, wine or tobacco.
 4. If the query includes about Jain recipe or food, do not include onion, potato, garlic, ginger, carrot, beetroot, mushroom like items in your response.
 5. Return the results as a strict JSON object with:
   {

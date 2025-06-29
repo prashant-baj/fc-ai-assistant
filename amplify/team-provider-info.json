@@ -15,23 +15,23 @@
       "function": {
         "FCAIKBSynchFunction": {
           "deploymentBucketName": "amplify-fcaichatbot-staging-2b557-deployment",
-          "s3Key": "amplify-builds/FCAIKBSynchFunction-514b3363512b7737556c-build.zip"
+          "s3Key": "amplify-builds/FCAIKBSynchFunction-2b50656c4c612f667670-build.zip"
         },
         "FCAIVectorSearchLambda": {
           "deploymentBucketName": "amplify-fcaichatbot-staging-2b557-deployment",
-          "s3Key": "amplify-builds/FCAIVectorSearchLambda-42772b65644b59733669-build.zip"
+          "s3Key": "amplify-builds/FCAIVectorSearchLambda-37506c61484b42515864-build.zip"
         },
         "FCAIIntentAnalyserLambda": {
           "deploymentBucketName": "amplify-fcaichatbot-staging-2b557-deployment",
-          "s3Key": "amplify-builds/FCAIIntentAnalyserLambda-5058534e675974667655-build.zip"
+          "s3Key": "amplify-builds/FCAIIntentAnalyserLambda-5652746b33516f6b7154-build.zip"
         },
         "FCAIChatbotLambda": {
           "deploymentBucketName": "amplify-fcaichatbot-staging-2b557-deployment",
-          "s3Key": "amplify-builds/FCAIChatbotLambda-304d556f466a59316672-build.zip"
+          "s3Key": "amplify-builds/FCAIChatbotLambda-512b53356f4431704541-build.zip"
         },
         "FCAIQueryLambda": {
           "deploymentBucketName": "amplify-fcaichatbot-staging-2b557-deployment",
-          "s3Key": "amplify-builds/FCAIQueryLambda-32527567444433526578-build.zip"
+          "s3Key": "amplify-builds/FCAIQueryLambda-4f6d7856756652504c76-build.zip"
         },
         "FCAIChatbotAuthorizer": {
           "deploymentBucketName": "amplify-fcaichatbot-staging-2b557-deployment",

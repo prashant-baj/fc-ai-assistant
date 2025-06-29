@@ -46,12 +46,30 @@ Include any fruits or vegetables you mention in the fnvList.
   if (intents.includes("GeneralKnowledge")) {
     prompt += `
 GeneralKnowledge:
-Answer with general facts about fruits & vegetables.
+Answer with general facts about fruits & vegetables only.
 Include any fruits or vegetables you mention in the fnvList.
+Do NOT include any non-vegetarian items like meat, fish, eggs, alcohol, wine or tobacco.
+Do NOT include anything NOT related to fruits & vegetables, their benefits, usage, cultivation, etc.
+
 `;
   }
 
-  // Could add more intent-specific logic as needed.
+  if (intents.includes("Gesture")) {
+    prompt += `
+Gesture:
+You are acting as a customer service representative.
+Respond to the user's gratitude, appreciation, disappointment or complaint etc.
+Respond with a simple "Thank you!" or similar gesture.
+If the gesture is related to fruits & vegetables, mention them.
+If the gesture indicate disaapointment or complaint, acknowledge it politely and be apologetic.
+Include any fruits or vegetables you mention in the fnvList.
+Do NOT include any non-vegetarian items like meat, fish, eggs, alcohol, wine or tobacco.
+Do NOT include anything NOT related to fruits & vegetables, their benefits, usage, cultivation, etc.
+
+`;
+  }
+
+  prompt += `Please respond only with a valid JSON object.`;
   return prompt;
 }
 
@@ -67,13 +85,14 @@ exports.handler = async (event) => {
 
     const system = [{ text: buildSystemPrompt(intents) }];
     const messages = [{ role: "user", content: [{ text: message }] }];
-
-    const command = new ConverseCommand({
+    const commandParams = {
       modelId,
       system,
       messages,
       inferenceConfig: { maxTokens: 500, temperature: 0.7 }
-    });
+    };
+    console.log("Command parameters:", JSON.stringify(commandParams, null, 2));
+    const command = new ConverseCommand(commandParams);
 
     const response = await client.send(command);
     const text = response.output.message.content[0]?.text?.trim();

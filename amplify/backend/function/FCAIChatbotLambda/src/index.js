@@ -112,7 +112,7 @@ exports.handler = async (event) => {
             await sendWsMessage(
                 wsEndpoint,
                 connectionId,
-                buildResponse({ userMessages: [{ messageType: 'content', messageValues: ['Sorry, this is objectionable or harmful. Testing me or using information on such topics may atrract legal action '] }] }),
+                buildResponse({ userMessages: [{ messageType: 'content', messageValues: ['Sorry, are you testing me? If you have any specific fedback, please contact FarmChain support'] }] }),
                 userId
             );
             return { statusCode: 200, body: JSON.stringify({ status: 'ok' }) };
@@ -151,10 +151,22 @@ exports.handler = async (event) => {
         );
 
         if (intents.includes('FAQ')) {
+
+            const vectorResp = await invokeLambda('FCAIVectorSearchLambda-staging', {
+                bucket: "fc-bedrock-kb",
+                key: "vectors/faq-with-embeddings.json",
+                intent: "faq",
+                query: message,
+                minSimilarity: 0.2,
+                topK: 2
+            });
+            console.debug('FAQ vector response:', vectorResp);
+            const answers = JSON.parse(vectorResp.body).matches || [];
+            console.debug('FAQ matches:', answers);
             await sendWsMessage(
                 wsEndpoint,
                 connectionId,
-                buildResponse({ userMessages: [{ messageType: 'message', messageValues: ['Sorry... At the moment I am not able to address this question.'] }] }),
+                buildResponse({ userMessages: [{ messageType: 'content', messageValues: answers.map((a) => a.answer) }] }),
                 userId
             );
             return { statusCode: 200, body: JSON.stringify({ status: 'ok' }) };
@@ -174,6 +186,7 @@ exports.handler = async (event) => {
             const vectorResp = await invokeLambda('FCAIVectorSearchLambda-staging', {
                 bucket: "fc-bedrock-kb",
                 key: "vectors/catalogue-400601-with-embeddings.json",
+                intent: "FindProduct",
                 query: message,
                 minSimilarity: 0.25,
                 topK: 10
@@ -218,9 +231,10 @@ exports.handler = async (event) => {
             const matches = await invokeLambda('FCAIVectorSearchLambda-staging', {
                 bucket: "fc-bedrock-kb",
                 key: "vectors/catalogue-400601-with-embeddings.json",
+                intent: "FindProduct",
                 query: `Identify these products: ${inner.fnvList}`,
-                minSimilarity: 0.25,
-                topK: 15
+                minSimilarity: 0.21,
+                topK: 30
             });
             const productMatches = JSON.parse(matches.body).matches || [];
             console.debug('Matches from vector search:', productMatches);
