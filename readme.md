@@ -146,6 +146,17 @@ Provide a secure, real-time, AI-powered shopping assistant to users.
 
 ---
 
+## Live Demo in Flutter app hosted on AWS Amplify
+For Live demo please use below link - 
+- https://fc-ai-assistant.d3gbfa04s89ewa.amplifyapp.com/
+- Use below test credentials 
+    - use mobile number - +91 8787878787
+    - use pincode - 400601
+    - use verification code (OTP) - 123456
+- Navogate to Chat page. Last icon on bottom navigation bar.
+- Try it.. add some products to cart within the chat window. 
+- On the top right hit the bag icon and jump to Checkout
+
 ## Project Structure
 
 ```
