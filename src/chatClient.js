@@ -93,7 +93,7 @@ function promptUser(ws) {
         JSON.stringify({
           action: 'message',
           message,
-          userId: '+919970160472',
+          userId: '+918787878787',
         })
       );
 
