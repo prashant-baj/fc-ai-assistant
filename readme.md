@@ -3,6 +3,8 @@
 
 **An AI-powered, serverless shopping assistant backend using AWS Lambda, Amazon Bedrock, S3, DynamoDB, Cognito, and API Gateway.**
 
+**Objective of this architecture pattern that is purely based on lambda function to support a very cost effective solution to evolving use cases especially for early stage startups or where the RAG is performed on a smaller datasets.**
+
 ---
 
 ## Table of Contents
@@ -31,12 +33,15 @@ This backend project powers an AI-based shopping assistant, supporting Retrieval
 
 ## Core Components
 
+### APIs
+- **FCAIKBSync** - REST API for invoking the vectorization process.
+- **FCAIChatbot** - Websocket API for conversations.
+
 ### AWS Lambda Functions
 
-- **FCAIKBSynchFunction**: Creates vector embeddings for catalog items using Amazon Bedrock and stores the enriched data in S3.
-- **FCAIChatbotLambda**: Main chat logic, integrates Bedrock LLM for AI responses, fetches product info from the vector dump.
+- **FCAIKBSynchFunction**: Creates vector embeddings for catalog items using Amazon Bedrock Titan embeddings model and stores the enriched data in S3.
 - **FCAIChatbotAuthorizer**: Custom Lambda for JWT/Cognito-based authorization of WebSocket connections.
-- **FCAIChatbotLambda**: Lambda function that is integrated with websocket API. Responsible for orchatrating the intent analyzer, user query and RAG. Also puts the conversations in dynamo db table.
+- **FCAIChatbotLambda**: Main chat orechestrator that responds to websocket requests. It called underlying lambda functions based on the responsibility, formats the responses for the client app to consume and also logs the conversation events into dynamodb. Conversation logs contain uuid for each event, wss session id, userid, timestamp, user query and bot response.
 - **FCAIIntentAnalyserLambda**: Identifies the intent of the user. It classifies the intent in one of the following intents:
 - Intents
   - Greetings (e.g. hello, hi, howdy)
@@ -105,7 +110,20 @@ Provide a secure, real-time, AI-powered shopping assistant to users.
 3. **Authorization:**  
    Lambda authorizer validates the JWT.
 4. **Chat Logic:**  
-   Main Lambda receives chat events, uses Bedrock LLM for responses, and performs vector searches on the S3-enriched catalog.
+   Main Lambda receives chat events, Orchestrates the queries and responses. Keeps sending responses in following format
+   ```json
+   {"response":{"forClientLogic":[],"forUser":[{"messageType":"message","messageValues":["Processing your request..."]}]}}
+
+   {"response":{"forClientLogic":[{"messageType":"intent","messageValues":["findproduct"]}],"forUser":[{"messageType":"message","messageValues":["As I understand, you're interested in information related to  findproduct"]}]}}
+
+   {"response":{"forClientLogic":[{"messageType":"products","messageValues":["FCR0039","FCRZM0118","FCRZM0126","FCR0016","FCR0041","FCR0044","FCR0012","FCR0034","FCR0027","FCRZM0115","FCR0057","FCR0065","FCR0007","FCRZM0120","FCR0064","FCRZM0123"]}],
+   "forUser":[{"messageType":"content","messageValues":["A carrot and beetroot salad is packed with health benefits. Carrots are rich in beta-carotene, which is great for your vision and immune system. They also contain fiber and antioxidants. Beetroots are excellent for heart health due to their high nitrate content, which can improve blood flow and lower blood pressure. They are also rich in folate, manganese, and potassium."]}]}}
+
+    ```
+    - forClient messages are expected to be used by client application to perform some logic based on messageType and values.
+    - forUser messages of type "message" are expected to be used to inform users.
+    - forUser messages of type "content" are expected to be shown to inform users as main content
+
 5. **Persistence:**  
    Chat and session data stored in DynamoDB.
 
@@ -164,7 +182,9 @@ amplify/backend/function/
   ├── FCAIKBSynchFunction/      # Vectorization Lambda
   ├── FCAIChatbotLambda/        # Main chat Lambda
   ├── FCAIChatbotAuthorizer/    # WebSocket/Lambda authorizer
-  └── FCAIIntentAnalyserLambda/ # (Optional) Intent analysis
+  ├── FCAIIntentAnalyserLambda/ # Intent analysis
+  ├── FCAIQueryLambda/          # Queries LLM
+  ├── FCAIVectorSearchLambda/   # Finds the relevant content from vector dump.
 src/
   └── chatClient.js             # Node.js chat test client
 ```
