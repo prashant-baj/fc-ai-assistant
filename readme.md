@@ -3,7 +3,7 @@
 
 **An AI-powered, serverless shopping assistant backend using AWS Lambda, Amazon Bedrock, S3, DynamoDB, Cognito, and API Gateway.**
 
-**Objective of this architecture pattern that is purely based on lambda function to support a very cost effective solution to evolving use cases especially for early stage startups or where the RAG is performed on a smaller datasets.**
+**Objective of this architecture is to provide a very cost effective solution pattern to evolving use cases especially for early stage startups or where the RAG is performed on a smaller datasets.**
 
 ---
 
