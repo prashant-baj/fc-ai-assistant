@@ -13,9 +13,9 @@
 - [Knowledge Base Vectorization (RAG Pipeline)](#knowledge-base-vectorization-rag-pipeline)
 - [Chat Application (Conversational AI)](#chat-application-conversational-ai)
 - [How to Test](#how-to-test)
+- [Live Demo](#live-demo-in-flutter-app-hosted-on-aws-amplify)
 - [Project Structure](#project-structure)
 - [Extending & Customizing](#extending--customizing)
-- [License](#license)
 
 ---
 
