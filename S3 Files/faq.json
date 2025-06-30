@@ -1,0 +1,52 @@
+[
+    {
+      "id": "faq_01",
+      "question": "What is FarmChain Retail?",
+      "answer": "FarmChain Retail is an online platform that delivers fresh, organic fruits and vegetables directly to your doorstep. It sources produce directly from farmers and ensures hygienic packaging without using cold storage or dark stores. Deliveries are available in Mumbai and Pune."
+    },
+    {
+      "id": "faq_02",
+      "question": "How do I place an order on FarmChain?",
+      "answer": "You can place an order by visiting the FarmChain Retail website or using the Android app. Orders placed before midnight are packed fresh and delivered the next morning in Mumbai and Pune."
+    },
+    {
+      "id": "faq_03",
+      "question": "How do I pay for my FarmChain order?",
+      "answer": "Each FarmChain delivery includes a QR code on the packaging. You can scan the code with any UPI app to complete your payment. Customers should not pay the delivery person directly."
+    },
+    {
+      "id": "faq_04",
+      "question": "What areas does FarmChain currently serve?",
+      "answer": "FarmChain currently delivers in Mumbai and Pune, covering most neighborhoods in these cities."
+    },
+    {
+      "id": "faq_05",
+      "question": "What kind of products does FarmChain offer?",
+      "answer": "FarmChain offers a range of fresh produce including organic vegetables, hydroponic greens, seasonal fruits, and exotic items."
+    },
+    {
+      "id": "faq_06",
+      "question": "How is produce quality ensured?",
+      "answer": "FarmChain sources directly from farmers and handles sorting, grading, packaging, and delivery. No cold storage is used; orders are packed fresh after midnight and delivered the next morning."
+    },
+    {
+      "id": "faq_07",
+      "question": "Is there a subscription required to use FarmChain?",
+      "answer": "No subscription is required. Customers can place orders as needed without any long-term commitment."
+    },
+    {
+      "id": "faq_08",
+      "question": "Who should I contact for support?",
+      "answer": "You can contact FarmChain support via email at support@farmchain.app or call the Mumbai/Thane helpline numbers listed on the website."
+    },
+    {
+      "id": "faq_09",
+      "question": "Is the FarmChain app safe to use?",
+      "answer": "Yes, the FarmChain Android app uses secure encryption and follows privacy best practices. You can request data deletion through support."
+    },
+    {
+      "id": "faq_10",
+      "question": "Does FarmChain support farmers?",
+      "answer": "Yes, FarmChain provides pre-order forecasts, prompt payments, and direct market access to over 200 farmers, helping increase their income by up to 60%."
+    }
+  ]

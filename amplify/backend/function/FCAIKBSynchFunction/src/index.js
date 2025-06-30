@@ -1,3 +1,60 @@
+
+/**
+ * AWS Lambda handler to enrich product or FAQ data stored in S3 with text embeddings using Amazon Bedrock.
+ * 
+ * Expects an event with a JSON body containing:
+ *   - bucket: S3 bucket name
+ *   - key: S3 object key for the input JSON array
+ *   - type: (optional) "product" or "faq" (default: "product")
+ * 
+ * Loads the array from S3, generates embeddings for each item, and saves the enriched array back to S3.
+ * 
+ * @param {object} event - The Lambda event object.
+ * @param {string} event.body - JSON string with { bucket, key, type }.
+ * @returns {Promise<object>} HTTP response with statusCode and body.
+ */
+
+/**
+ * Parses the embedding response from Bedrock.
+ * @param {Uint8Array|Buffer} responseBody - The response body from Bedrock.
+ * @returns {Promise<Array<number>>} The embedding array.
+ */
+
+/**
+ * Generates an embedding for the given text using Bedrock.
+ * @param {string} text - The text to embed.
+ * @param {BedrockRuntimeClient} bedrockClient - The Bedrock client instance.
+ * @returns {Promise<Array<number>|null>} The embedding array, or null on failure.
+ */
+
+/**
+ * Loads a JSON object from S3.
+ * @param {S3Client} s3Client - The S3 client instance.
+ * @param {string} bucket - The S3 bucket name.
+ * @param {string} key - The S3 object key.
+ * @returns {Promise<any>} The parsed JSON object.
+ */
+
+/**
+ * Saves a JSON object to S3.
+ * @param {S3Client} s3Client - The S3 client instance.
+ * @param {string} bucket - The S3 bucket name.
+ * @param {string} key - The S3 object key.
+ * @param {any} data - The data to save.
+ * @returns {Promise<void>}
+ */
+
+/**
+ * Builds a text string from a product object for embedding.
+ * @param {object} product - The product object.
+ * @returns {string} The concatenated text for embedding.
+ */
+
+/**
+ * Builds a text string from a FAQ object for embedding.
+ * @param {object} faq - The FAQ object.
+ * @returns {string} The concatenated text for embedding.
+ */
 const { S3Client, GetObjectCommand, PutObjectCommand } = require("@aws-sdk/client-s3");
 const { BedrockRuntimeClient, InvokeModelCommand } = require("@aws-sdk/client-bedrock-runtime");
 const path = require("path");

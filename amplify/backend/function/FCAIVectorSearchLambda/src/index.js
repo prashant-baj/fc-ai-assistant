@@ -1,3 +1,22 @@
+
+/**
+ * AWS Lambda handler for vector search using Amazon Bedrock and S3.
+ * 
+ * This function retrieves data from an S3 bucket, generates an embedding for the input query using Amazon Titan,
+ * and performs a similarity search (cosine similarity) against stored embeddings for either products or FAQs.
+ * 
+ * @param {Object} event - The Lambda event object.
+ * @param {string} event.bucket - The S3 bucket name containing the data.
+ * @param {string} event.key - The S3 object key for the data file (JSON).
+ * @param {string} event.query - The user query to embed and search.
+ * @param {string} event.intent - The search intent, either "FindProduct" or "faq".
+ * @param {number} [event.minSimilarity=0.3] - Minimum cosine similarity threshold for matches.
+ * @param {number} [event.topK=10] - Maximum number of top matches to return.
+ * 
+ * @returns {Promise<Object>} The HTTP response object with statusCode and body (JSON string).
+ * 
+ * @throws {Error} If required parameters are missing or if S3/embedding operations fail.
+ */
 const { S3Client, GetObjectCommand } = require('@aws-sdk/client-s3');
 const { BedrockRuntimeClient, InvokeModelCommand } = require('@aws-sdk/client-bedrock-runtime');
 

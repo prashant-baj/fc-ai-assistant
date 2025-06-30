@@ -1,3 +1,18 @@
+
+/**
+ * AWS Lambda handler for querying Bedrock model with intent-based prompts for a fruits & vegetables shop app.
+ * 
+ * This function receives a user message and a list of intents, builds a system prompt with intent-specific instructions,
+ * sends the prompt to the Bedrock model, and returns a structured JSON response containing:
+ * - "intent": list of intents
+ * - "response": the model's answer
+ * - "fnvList": list of fruits and vegetables mentioned
+ * 
+ * @param {Object} event - The Lambda event object.
+ * @param {string} event.message - The user's input message.
+ * @param {string[]} event.intents - List of detected intents (e.g., "Recipe", "Health", "Agriculture", "GeneralKnowledge", "Gesture").
+ * @returns {Promise<Object>} The HTTP response object with statusCode and body (JSON string).
+ */
 // FCAIQueryLambda/index.js
 const { BedrockRuntimeClient, ConverseCommand } = require("@aws-sdk/client-bedrock-runtime");
 

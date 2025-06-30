@@ -1,3 +1,58 @@
+
+
+/**
+ * AWS Lambda handler for FarmChain AI Chatbot WebSocket API.
+ * 
+ * Handles WebSocket events ($connect, $disconnect, message) for a chatbot, including:
+ * - Logging messages to DynamoDB
+ * - Invoking intent analysis and vector search Lambdas
+ * - Sending structured responses to clients via API Gateway WebSocket
+ * 
+ * @module FCAIChatbotLambda
+ * 
+ * @requires @aws-sdk/client-lambda
+ * @requires @aws-sdk/client-apigatewaymanagementapi
+ * @requires @aws-sdk/client-dynamodb
+ * @requires uuid
+ * 
+ * @function logMessage
+ * @async
+ * @param {string} connectionId - WebSocket connection ID.
+ * @param {string} role - Role of the message sender ('user' or 'bot').
+ * @param {string|object} content - Message content.
+ * @param {string} userId - User identifier.
+ * @returns {Promise<void>}
+ * @description Logs a message to DynamoDB.
+ * 
+ * @function invokeLambda
+ * @async
+ * @param {string} FunctionName - Name of the Lambda function to invoke.
+ * @param {object} Payload - Payload to send to the Lambda function.
+ * @returns {Promise<object>} Parsed JSON response from the invoked Lambda.
+ * @description Invokes another Lambda function and parses its response.
+ * 
+ * @function sendWsMessage
+ * @async
+ * @param {string} endpoint - WebSocket API endpoint.
+ * @param {string} connectionId - WebSocket connection ID.
+ * @param {object} structuredResponse - Structured response to send.
+ * @param {string} userId - User identifier.
+ * @returns {Promise<void>}
+ * @description Sends a message to the client via WebSocket and logs it.
+ * 
+ * @function buildResponse
+ * @param {object} options
+ * @param {Array<object>} [options.clientLogic=[]] - Logic instructions for the client.
+ * @param {Array<object>} [options.userMessages=[]] - Messages for the user.
+ * @returns {object} Structured response object.
+ * @description Utility to build structured JSON responses.
+ * 
+ * @function handler
+ * @async
+ * @param {object} event - Lambda event object from API Gateway WebSocket.
+ * @returns {Promise<object>} API Gateway Lambda Proxy integration response.
+ * @description Main Lambda handler for WebSocket events. Handles connection, disconnection, and message routing, including intent analysis, FAQ, product search, and general queries.
+ */
 const { LambdaClient, InvokeCommand } = require('@aws-sdk/client-lambda');
 const { ApiGatewayManagementApiClient, PostToConnectionCommand } = require('@aws-sdk/client-apigatewaymanagementapi');
 const { DynamoDBClient, PutItemCommand } = require('@aws-sdk/client-dynamodb');

@@ -1,3 +1,46 @@
+
+
+/**
+ * AWS Lambda Authorizer for validating JWT tokens issued by Amazon Cognito.
+ * 
+ * This function uses the `jsonwebtoken` and `jwks-rsa` libraries to verify JWT tokens
+ * against the public keys provided by the Cognito User Pool. It generates an IAM policy
+ * allowing or denying access based on the validity of the token.
+ * 
+ * Environment:
+ * - Cognito User Pool ID and AWS Region are hardcoded.
+ * 
+ * @module FCAIChatbotAuthorizer
+ */
+
+ /**
+  * Retrieves the signing key from the JWKS endpoint using the key ID from the JWT header.
+  *
+  * @param {Object} header - The JWT header containing the key ID (`kid`).
+  * @param {Function} callback - Callback function to return the signing key or error.
+  */
+ 
+ /**
+  * AWS Lambda handler function for the custom authorizer.
+  *
+  * @async
+  * @param {Object} event - The Lambda event object containing request details.
+  * @param {Object} event.headers - HTTP headers, expected to contain the Authorization token.
+  * @param {Object} event.queryStringParameters - Query string parameters, may contain Authorization token.
+  * @param {string} event.methodArn - The ARN of the API Gateway method being invoked.
+  * @returns {Promise<Object>} The generated IAM policy document with context.
+  */
+ 
+ /**
+  * Generates an IAM policy document for API Gateway.
+  *
+  * @param {string} principalId - The principal user identifier (e.g., Cognito user sub).
+  * @param {string} effect - The effect for the policy ("Allow" or "Deny").
+  * @param {string} resource - The ARN of the resource being accessed.
+  * @param {Object} [context={}] - Additional context to include in the policy.
+  * @returns {Object} The policy document.
+  */
+ 
 const jwt = require('jsonwebtoken');
 const jwksClient = require('jwks-rsa');
 

@@ -1,8 +1,5 @@
-Here’s a comprehensive README.md draft for your fc-ai-assistant backend project, including a clear architecture diagram (in text/markdown form). You can adjust the diagram or content as needed for your audience or for further detail.
 
----
-
-# fc-ai-assistant
+# AI Shopping Assistant
 
 **An AI-powered, serverless shopping assistant backend using AWS Lambda, Amazon Bedrock, S3, DynamoDB, Cognito, and API Gateway.**
 
@@ -30,30 +27,7 @@ This backend project powers an AI-based shopping assistant, supporting Retrieval
 
 ## Architecture Diagram
 
-```mermaid
-graph TD
-  subgraph Knowledge Base Vectorization
-    A[S3: Product Catalog JSON] --> B[FCAIKBSynchFunction (Lambda)]
-    B --> C[Amazon Bedrock (Titan Embedding)]
-    C --> B
-    B --> D[S3: Vector Dump (Enriched JSON)]
-  end
-
-  subgraph AI Chat Assistant
-    E[User/Client] -- Cognito Auth --> F[Amazon Cognito]
-    E -- WebSocket API --> G[API Gateway (WebSocket)]
-    G -- Lambda Authorizer --> H[FCAIChatbotAuthorizer (Lambda)]
-    G -- Chat Event --> I[FCAIChatbotLambda (Lambda)]
-    I -- DynamoDB Ops --> J[DynamoDB: Chat/Session]
-    I -- Bedrock LLM --> K[Amazon Bedrock (LLM)]
-    I -- Vector Search --> D
-    I -- S3 Assets --> L[S3: Assets]
-  end
-
-  D -.-> I
-```
-
----
+![Beautiful Sunset](arch.png "Sunset Image")
 
 ## Core Components
 
@@ -62,7 +36,24 @@ graph TD
 - **FCAIKBSynchFunction**: Creates vector embeddings for catalog items using Amazon Bedrock and stores the enriched data in S3.
 - **FCAIChatbotLambda**: Main chat logic, integrates Bedrock LLM for AI responses, fetches product info from the vector dump.
 - **FCAIChatbotAuthorizer**: Custom Lambda for JWT/Cognito-based authorization of WebSocket connections.
-- **FCAIIntentAnalyserLambda**: (Optional) Specialized intent classification for chat input.
+- **FCAIChatbotLambda**: Lambda function that is integrated with websocket API. Responsible for orchatrating the intent analyzer, user query and RAG. Also puts the conversations in dynamo db table.
+- **FCAIIntentAnalyserLambda**: Identifies the intent of the user. It classifies the intent in one of the following.
+- Greetings
+  - Gesture
+  - Feedback
+  - FindProduct
+  - Recipe
+  - Health
+  - GeneralKnowledge
+  - Agriculture
+  - FAQ
+  - Irrelevant
+  - Objectionable
+  - Harmful
+- **FCAIQueryLambda**: Based on the intent and query, enriches the query with system prompt and generates the response using bedrock. Currently using nova-micro foundational model.
+- **FCAIVectorSearchLambda**: This is a RAG based function that searches the relevant underlying vector database or dump. In this application, it reads the vector dump from S3. Currently it supports two knowledge bases i.e. Product Catalogues and FAQ.
+If the results indicate some products those may be sold in store, it performs the cosine similarity search on the catalogue.
+If the intent is FAQ and general queries, then it tries to get theinformation from FAQ dump. 
 
 ### AWS Services
 
@@ -174,4 +165,6 @@ src/
 - Add new Lambda functions for additional AI flows.
 - Integrate the backend with your web/mobile frontend using the same authentication and WebSocket protocol as the provided client.
 - Use DynamoDB data for analytics or personalization.
+
+---
 

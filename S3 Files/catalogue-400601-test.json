@@ -1,0 +1,325 @@
+[
+    {
+        "productId": "FCRZM0208",
+        "names": {
+            "english": "Organic Jamun",
+            "marathi": "सेंद्रिय जांभूळ",
+            "hindi": "ऑर्गेनिक जामुन"
+        },
+        "primary-categories": [
+            {
+                "category": "featured",
+                "tags": [
+                    "Featured Products"
+                ]
+            },
+            {
+                "category": "Fruits",
+                "tags": [
+                    "Organic Fruits"
+                ]
+            },
+            {
+                "category": "Organic",
+                "tags": [
+                    "Organic"
+                ]
+            },
+            {
+                "category": "Fruits",
+                "tags": [
+                    "Seasonal"
+                ]
+            }
+        ],
+        "other-categories": [
+            {
+                "category": "health",
+                "tags": [
+                    "Diabetes Friendly",
+                    "Antioxidants",
+                    "Immunity Booster"
+                ]
+            }
+        ],
+        "shortDescription": "Nutrient-rich Organic Jamun",
+        "longDescription": "Organically grown and packed with antioxidants, Organic Jamun is a summer fruit known for its natural ability to support blood sugar management and digestion. Its rich purple hue and tangy flavor make it a delightful seasonal treat, favored for its health benefits and traditional medicinal uses.",
+        "images": [
+            "https://farmchain.in/retail-app/Assets/Products/zama/FCRZM0208.png"
+        ],
+        "SKUs": [
+            {
+                "skuId": "FCRZM0208-1",
+                "availabilityPINPrefixes": [],
+                "availabilityDescription": "",
+                "unit": "Gms",
+                "unitQty": 500,
+                "displayUnit": "500 Gms pack",
+                "mrp": 480,
+                "sp": 410,
+                "availableStatus": "Available",
+                "available": true,
+                "active": true,
+                "images": [
+                    "https://farmchain.in/retail-app/Assets/Products/zama/FCRZM0208.png"
+                ]
+            }
+        ],
+        "source": {
+            "supplier": "Zama Organics",
+            "supplierType": "Merchant",
+            "supplierPlace": "Vashi",
+            "images": [
+                "supplier.jpg"
+            ]
+        }
+    },
+    {
+        "productId": "FCR0207",
+        "names": {
+            "english": "Jamun",
+            "marathi": "जांभूळ",
+            "hindi": "जामुन"
+        },
+        "primary-categories": [
+            {
+                "category": "featured",
+                "tags": [
+                    "Featured Products"
+                ]
+            },
+            {
+                "category": "Fruits",
+                "tags": [
+                    "Seasonal"
+                ]
+            }
+        ],
+        "other-categories": [
+            {
+                "category": "health",
+                "tags": [
+                    "Diabetes Friendly",
+                    "Antioxidants"
+                ]
+            }
+        ],
+        "shortDescription": "Fresh seasonal Jamun",
+        "longDescription": "Rich in antioxidants and known for its benefits in managing blood sugar levels, Jamun is a nutrient-packed seasonal fruit widely enjoyed in India during summer.",
+        "images": [
+            "https://farmchain.in/retail-app/Assets/Products/FCR0207.png"
+        ],
+        "SKUs": [
+            {
+                "skuId": "FCR0207-1",
+                "availabilityPINPrefixes": [],
+                "availabilityDescription": "",
+                "unit": "Gms",
+                "unitQty": 250,
+                "displayUnit": "250 Gms pack - Large Size",
+                "mrp": 200,
+                "sp": 150,
+                "availableStatus": "Launching shortly",
+                "available": false,
+                "active": true,
+                "images": [
+                    "https://farmchain.in/retail-app/Assets/Products/FCR0207.png"
+                ]
+            },
+            {
+                "skuId": "FCR0207-2",
+                "availabilityPINPrefixes": [],
+                "availabilityDescription": "",
+                "unit": "Gms",
+                "unitQty": 250,
+                "displayUnit": "250 Gms pack - Medium Size",
+                "mrp": 160,
+                "sp": 100,
+                "availableStatus": "Launching shortly",
+                "available": false,
+                "active": true,
+                "images": [
+                    "https://farmchain.in/retail-app/Assets/Products/FCR0060.png"
+                ]
+            }
+        ],
+        "source": {
+            "supplier": "Local Market",
+            "supplierType": "Merchant",
+            "supplierPlace": "Vashi",
+            "images": [
+                "supplier.jpg"
+            ]
+        }
+    },
+    {
+        "productId": "FCRZM0106",
+        "names": {
+            "english": "Organic Amla",
+            "marathi": "सेंद्रिय आवळा",
+            "hindi": "जैविक आंवला"
+        },
+        "primary-categories": [
+            {
+                "category": "featured",
+                "tags": [
+                    "Featured Products"
+                ]
+            },
+            {
+                "category": "Fruits",
+                "tags": [
+                    "Organic Fruits"
+                ]
+            },
+            {
+                "category": "Organic",
+                "tags": [
+                    "Organic"
+                ]
+            }
+        ],
+        "other-categories": [
+            {
+                "category": "health",
+                "tags": [
+                    "Vitamin C Boosters",
+                    "Antioxidant rich",
+                    "Immunity Boosters"
+                ]
+            }
+        ],
+        "shortDescription": "Fresh organic amla",
+        "longDescription": "Cerftified Organic product by ZAMA.Organic Amla is a powerhouse of Vitamin C and antioxidants that help boost immunity, improve skin health, and support digestion. Grown without harmful chemicals or pesticides, it retains its full nutritional potency. Regular consumption may also promote hair growth and regulate blood sugar levels.",
+        "images": [
+            "https://farmchain.in/retail-app/Assets/Products/zama/FCRZM0106.png"
+        ],
+        "SKUs": [
+            {
+                "skuId": "FCRZM0106-2",
+                "availabilityPINPrefixes": [],
+                "availabilityDescription": "",
+                "unit": "Kg",
+                "unitQty": 1,
+                "displayUnit": "250 gms",
+                "mrp": 72,
+                "sp": 65,
+                "availableStatus": "Delivered every Sat",
+                "available": true,
+                "active": true,
+                "images": [
+                    "https://farmchain.in/retail-app/Assets/Products/zama/FCRZM0106.png"
+                ]
+            }
+        ],
+        "source": {
+            "supplier": "Zama Organics",
+            "supplierType": "Merchant",
+            "supplierPlace": "Vashi",
+            "images": [
+                "https://farmchain.in/retail-app/Assets/Suppliers/zama.png"
+            ]
+        }
+    },
+    {
+        "productId": "FCRZM0108",
+        "names": {
+            "english": "Organic Apple",
+            "marathi": "सेंद्रिय सफरचंद",
+            "hindi": "जैविक सेब"
+        },
+        "primary-categories": [
+            {
+                "category": "Fruits",
+                "tags": [
+                    "Organic Fruits"
+                ]
+            },
+            {
+                "category": "Organic",
+                "tags": [
+                    "Organic"
+                ]
+            }
+        ],
+        "other-categories": [
+            {
+                "category": "health",
+                "tags": [
+                    "Antioxidant rich",
+                    "Digestive Health"
+                ]
+            },
+            {
+                "category": "diet",
+                "tags": [
+                    "Antioxidant rich",
+                    "Digestive Health"
+                ]
+            }
+        ],
+        "shortDescription": "Crisp organic apples",
+        "longDescription": "Cerftified Organic product by ZAMA. Organic apples are fresh, crisp, and juicy, grown without synthetic chemicals. They provide dietary fiber, vitamins, and antioxidants supporting overall health and heart wellness.",
+        "images": [
+            "https://farmchain.in/retail-app/Assets/Products/zama/FCRZM0108.png"
+        ],
+        "SKUs": [
+            {
+                "skuId": "FCRZM0108-0",
+                "availabilityPINPrefixes": [],
+                "availabilityDescription": "",
+                "unit": "Kg",
+                "unitQty": 1,
+                "displayUnit": "1 Kg",
+                "mrp": 340,
+                "sp": 315,
+                "availableStatus": "Unavailable",
+                "available": false,
+                "active": true,
+                "images": [
+                    "https://farmchain.in/retail-app/Assets/Products/zama/FCRZM0108.png"
+                ]
+            },
+            {
+                "skuId": "FCRZM0108-1",
+                "availabilityPINPrefixes": [],
+                "availabilityDescription": "",
+                "unit": "Kg",
+                "unitQty": 1,
+                "displayUnit": "500 gms",
+                "mrp": 170,
+                "sp": 160,
+                "availableStatus": "Unavailable",
+                "available": false,
+                "active": true,
+                "images": [
+                    "https://farmchain.in/retail-app/Assets/Products/zama/FCRZM0108.png"
+                ]
+            },
+            {
+                "skuId": "FCRZM0108-2",
+                "availabilityPINPrefixes": [],
+                "availabilityDescription": "",
+                "unit": "Kg",
+                "unitQty": 1,
+                "displayUnit": "250 gms",
+                "mrp": 90,
+                "sp": 85,
+                "availableStatus": "Unavailable",
+                "available": false,
+                "active": true,
+                "images": [
+                    "https://farmchain.in/retail-app/Assets/Products/zama/FCRZM0108.png"
+                ]
+            }
+        ],
+        "source": {
+            "supplier": "Zama Organics",
+            "supplierType": "Merchant",
+            "supplierPlace": "Vashi",
+            "images": [
+                "https://farmchain.in/retail-app/Assets/Suppliers/zama.png"
+            ]
+        }
+    }    
+]

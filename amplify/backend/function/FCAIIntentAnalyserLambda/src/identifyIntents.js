@@ -1,4 +1,30 @@
-// identifyIntents.js
+
+/**
+ * Identifies the intent(s) of a user's input text for the FarmChain app.
+ * 
+ * Uses AWS Bedrock's ConverseCommand to classify the input into one or more of the following intents:
+ * - Greetings
+ * - Gesture
+ * - Feedback
+ * - FindProduct
+ * - Recipe
+ * - Health
+ * - GeneralKnowledge
+ * - Agriculture
+ * - FAQ
+ * - Irrelevant
+ * - Objectionable
+ * - Harmful
+ * 
+ * Any message not related to fresh fruits and vegetables, or containing objectionable content,
+ * is classified as "Irrelevant". If the message is about non-veg, fish, egg, meat, alcohol, wine,
+ * tobacco, or other objectionable content, no text is returned.
+ * 
+ * @async
+ * @function identifyIntents
+ * @param {string} inputText - The user's input message to classify.
+ * @returns {Promise<string[]>} - A promise that resolves to an array of intent strings.
+ */
 const { BedrockRuntimeClient, ConverseCommand } = require("@aws-sdk/client-bedrock-runtime");
 
 const client = new BedrockRuntimeClient({ region: "ap-south-1" });
