@@ -37,17 +37,18 @@ This backend project powers an AI-based shopping assistant, supporting Retrieval
 - **FCAIChatbotLambda**: Main chat logic, integrates Bedrock LLM for AI responses, fetches product info from the vector dump.
 - **FCAIChatbotAuthorizer**: Custom Lambda for JWT/Cognito-based authorization of WebSocket connections.
 - **FCAIChatbotLambda**: Lambda function that is integrated with websocket API. Responsible for orchatrating the intent analyzer, user query and RAG. Also puts the conversations in dynamo db table.
-- **FCAIIntentAnalyserLambda**: Identifies the intent of the user. It classifies the intent in one of the following.
-- Greetings
-  - Gesture
-  - Feedback
-  - FindProduct
-  - Recipe
-  - Health
-  - GeneralKnowledge
-  - Agriculture
-  - FAQ
-  - Irrelevant
+- **FCAIIntentAnalyserLambda**: Identifies the intent of the user. It classifies the intent in one of the following intents:
+- Intents
+  - Greetings (e.g. hello, hi, howdy)
+  - Gesture (e.g. thumbs up)
+  - Feedback (e.g. thanks, thank you)
+  - FindProduct (e.g Do you have spring onions? )
+  - Recipe (e.g. What salad I make from hydroponic veggies? )
+  - Health (e.g. Which fruits and vegetables can help in blood pressure?)
+  - GeneralKnowledge (e.g. Why organic vegetables are expensive?)
+  - Agriculture (e.g. How hydroponic veggies are grown?)
+  - FAQ (e.g. Where are your farms? How to make payments?)
+  - Irrelevant (e.g. Which car is fuel efficient?)
   - Objectionable
   - Harmful
 - **FCAIQueryLambda**: Based on the intent and query, enriches the query with system prompt and generates the response using bedrock. Currently using nova-micro foundational model.
